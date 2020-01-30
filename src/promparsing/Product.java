@@ -96,7 +96,7 @@ class Product {
         Node productsNode;
         
         // check wherether XML file with the chosen path exist or not. if 
-        // yes creating a new one, if no adding product info at the end
+        // no creating a new one, if yes adding product info at the end
         if (! new File(xmlPath).exists()) {
             document = documentBuilder.newDocument();
             productsNode = document.createElement("products");
