@@ -23,18 +23,24 @@ class Product {
     private String pic, name, discountInfo;
     private List<String> deliveryServices;
     private float price, oldPrice;
+    private String link;
     
     public Product(String name, List<String> deliveryServices,
-                   float price, float oldPrice, String discountInfo) {
+                   float price, float oldPrice, String discountInfo, String pic, String link) {
         this.name = name;
         this.deliveryServices  = deliveryServices;
         this.oldPrice = oldPrice;
         this.price = price;
         this.discountInfo = discountInfo;
+        this.pic = pic;
+        this.link = link; 
     }
 
     public String getPic() {
         return pic;
+    }
+    public String getLink(){
+        return link;
     }
 
     public String getname() {
@@ -55,6 +61,10 @@ class Product {
 
     public float getPrice() {
         return price;
+    }
+    
+    public void setLink (String link){
+        this.link = link;
     }
 
     public void setPic(String pic) {
@@ -85,7 +95,8 @@ class Product {
     public String toString() {
         return "product name: " + name + "\n" + "option list: " + deliveryServices + "\n"
                + "price with discount: " + price + "\n" + "price without discount: " + oldPrice + "\n"
-               + "discount info: " + discountInfo; 
+               + "discount info: " + discountInfo + "\n" + "picture: " + pic + "\n" +
+                "link on the product: " + link; 
     }
     
     public void writeToXML(String xmlPath) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, TransformerException{
@@ -115,6 +126,8 @@ class Product {
         Element mPrice = document.createElement("price");
         Element mOldPrice = document.createElement("priceWithoutDiscount");
         Element discInfo = document.createElement("discountInfo");
+        Element pic = document.createElement("picture");
+        Element productLink = document.createElement("link");
         
         // setting propper tegs with values
         prodName.setTextContent(name);
@@ -122,6 +135,8 @@ class Product {
         mPrice.setTextContent(Float.toString(price));
         mOldPrice.setTextContent(Float.toString(oldPrice));
         discInfo.setTextContent(discountInfo);
+        productLink.setTextContent(link);
+        pic.setTextContent(this.pic);
         
         // adding to proper branches
         productNode.appendChild(prodName);
@@ -129,6 +144,7 @@ class Product {
         productNode.appendChild(mPrice);
         productNode.appendChild(mOldPrice);
         productNode.appendChild(discInfo);
+        productNode.appendChild(pic);
         productsNode.appendChild(productNode);
         
         // writing to XML

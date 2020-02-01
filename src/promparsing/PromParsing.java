@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 
 public class PromParsing {
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException, TransformerException {
-        Product product = getProduct("https://prom.ua/p1065445612-besprovodnye-naushniki-airplus.html");
+        Product product = getProduct("https://prom.ua/p1118966832-mobilnyj-telefon-huawei.html");
         System.out.println(product);
         product.writeToXML("C:\\Users\\USER\\Documents\\NetBeansProjects\\"
                                                      + "PromParsing\\prom products.xml");
@@ -27,7 +27,11 @@ public class PromParsing {
         Elements oldPriceElement = doc.getElementsByAttributeValue("class", "x-product-price__discount-value");
         Elements deliveryServiceElements = doc.getElementsByAttributeValue("class", "x-emoji-label__text");
         Elements discountInfoElements = doc.getElementsByAttributeValue("class", "x-product-price__discount-info");
+        Elements picElement = doc.getElementsByAttributeValue("class", "js-product-buy-button "
+                                            + "x-button x-button_width_full x-button_size_xl x-button_theme_purple");
         
+        String pic = picElement.attr("data-product-big-picture");
+        String link = picElement.attr("data-product-url");
         String price = priceElement.attr("data-qaprice");
         
         String oldPrice;
@@ -44,7 +48,7 @@ public class PromParsing {
         });
         
        return new Product(productName, deliveryServices, Float.parseFloat(price),  
-               Float.parseFloat(oldPrice), discoutnInfo);
+               Float.parseFloat(oldPrice), discoutnInfo, pic, link);
         
     }
 }
